@@ -12,7 +12,16 @@ def scrapeWikiArticle(url, depth=5):
     soup = BeautifulSoup(response.content, 'html.parser')
 
     title = soup.find(id='firstHeading')
-    print(title.text)
+    print(f"Title={title.text}")
+    print(url)
+
+    content = soup.find(id="bodyContent").find_all('p')
+    if len(content[0].text) > 1:
+        print(f"Content={content[0].text}...")
+    else:
+        print(f"Context=This page doesn't have any body content.")
+
+    print("\n")
 
     allLinks = soup.find(id="bodyContent").find_all("a")
     random.shuffle(allLinks)
